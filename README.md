@@ -34,6 +34,15 @@ Add necessary hooks:
 after 'deploy:restart', 'god:reload', 'god:restart'
 ```
 
+Make sure you set up the PATH env variable to include rbenv paths as you would locally.
+Something like this given the app deployment user is `deploy`:
+
+```ruby
+set :default_environment, {
+  'PATH' => "/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH"
+}
+```
+
 Add optional hooks for uploading your .rbenv-vars file if you're using the rbenv-vars plugin:
 
 ```ruby
@@ -53,7 +62,6 @@ You can modify any of the following options in your `deploy.rb` config.
 - `god_sites_path` - Directory where god configs for all apps on the server are symlinked for reloading after reboot. Given user is `deploy` defaults to `/home/deploy/sites/god`
 - `god_app_path` - App-specific god.conf. Defaults to `#{current_path}/config/god.conf`.
 - `bundle_flags` - Bundler flags for generating binstubs that use rbenv. Defaults to `--deployment --quiet --binstubs --shebang ruby-local-exec`
-- `default_environment` - Make sure PATH env var includes rbenv paths. Given user is `deploy` defaults to `{'PATH' => "/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH"}`
           
 ## License
 
