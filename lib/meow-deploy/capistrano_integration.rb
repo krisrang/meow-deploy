@@ -29,8 +29,6 @@ module MeowDeploy
             !current_env['PATH'].include?('rbenv/shims')
 
             abort "Make sure to set :default_environment to have PATH include rbenv like this: \n#{env.inspect}" 
-          else
-            set :default_environment, env
           end
         end
         
