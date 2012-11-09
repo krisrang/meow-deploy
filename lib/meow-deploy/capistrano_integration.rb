@@ -8,19 +8,30 @@ module MeowDeploy
       'god:stop',
       'god:restart',
       'god:reload', 
-      'bundle:install',
+      'bundle:install'
     ]
 
     def self.load_into(capistrano_config)
       capistrano_config.load do
         before(MeowDeployIntegration::TASKS) do
-          _cset(:rbenv) { "/home/#{fetch(:user)}/.rbenv/bin/rbenv" }
-          _cset(:god_sites_path) { "/home/#{fetch(:user)}/sites/god" }
+          _cset(:rbenv) { "/home/#{user}/.rbenv/bin/rbenv" }
+          _cset(:god_sites_path) { "/home/#{user}/sites/god" }
           _cset(:god_app_path) { "#{current_path}/config/god.conf" }
           _cset :bundle_flags, "--deployment --quiet --binstubs --shebang ruby-local-exec"
-          _cset(:default_environment) { 
-            {'PATH' => "/home/#{fetch(:user)}/.rbenv/shims:/home/#{fetch(:user)}/.rbenv/bin:$PATH"} 
-          }
+
+          env = {'PATH' => 
+                 "/home/#{user}/.rbenv/shims:/home/#{user}/.rbenv/bin:$PATH" }
+
+          current_env = fetch(:default_environment)
+
+          if exists?(:default_environment) && 
+            !!current_env['PATH'] &&
+            !current_env['PATH'].includes?('rbenv/shims')
+
+            abort "Make sure to set :default_environment to have PATH include rbenv like this: \n#{env.inspect}" 
+          else
+            set :default_environment, env
+          end
         end
         
         namespace :god do
