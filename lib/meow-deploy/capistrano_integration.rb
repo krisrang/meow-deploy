@@ -13,7 +13,7 @@ module MeowDeploy
 
     def self.load_into(capistrano_config)
       capistrano_config.load do
-        before(CapistranoIntegration::TASKS) do
+        before(MeowDeployIntegration::TASKS) do
           _cset(:rbenv) { "/home/#{fetch(:user)}/.rbenv/bin/rbenv" }
           _cset(:god_sites_path) { "/home/#{fetch(:user)}/sites/god" }
           _cset(:god_app_path) { "#{current_path}/config/god.conf" }

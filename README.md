@@ -1,4 +1,4 @@
-# Meow::Deploy
+# MeowDeploy
 
 Tasks for deploying to a stack running god, rbenv and whatever rails server
 
