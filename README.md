@@ -34,12 +34,12 @@ Add necessary hooks:
 after 'deploy:restart', 'god:reload', 'god:restart'
 ```
 
-Make sure you set up the PATH env variable to include rbenv paths as you would locally.
-Something like this given the app deployment user is `deploy`:
+Make sure you set up the PATH env variable to include rbenv paths.
+For example if rbenv is installed in deployment user's home:
 
 ```ruby
 set :default_environment, {
-  'PATH' => "/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH"
+  'PATH' => "/home/#{user}/.rbenv/shims:/home/#{user}/.rbenv/bin:$PATH"
 }
 ```
 
