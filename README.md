@@ -53,7 +53,7 @@ You can modify any of the following options in your `deploy.rb` config.
 - `god_sites_path` - Directory where god configs for all apps on the server are symlinked for reloading after reboot. Given user is `deploy` defaults to `/home/deploy/sites/god`
 - `god_app_path` - App-specific god.conf. Defaults to `#{current_path}/config/god.conf`.
 - `bundle_flags` - Bundler flags for generating binstubs that use rbenv. Defaults to `--deployment --quiet --binstubs --shebang ruby-local-exec`
-- `default_environment` - Set PATH to include rbenv. Given user is `deploy` defaults to `{'PATH' => "/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH"}`
+- `default_environment` - Make sure PATH env var includes rbenv paths. Given user is `deploy` defaults to `{'PATH' => "/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH"}`
           
 ## License
 
