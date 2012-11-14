@@ -60,8 +60,8 @@ module MeowDeploy
 
           desc "Symlink env file."
           task :symlink, :roles => :app, :except => {:no_release => true} do
-            run "ln -nfs #{release_path}/.env #{current_path}/.rbenv-vars"
-            run "ln -nfs #{release_path}/.env #{current_path}/.env"
+            run "ln -nfs #{shared_path}/.env #{release_path}/.rbenv-vars"
+            run "ln -nfs #{shared_path}/.env #{release_path}/.env"
           end
         end
 
