@@ -31,6 +31,12 @@ module MeowDeploy
             abort "Make sure to set :default_environment to have PATH include rbenv like this: \n#{env.inspect}" 
           end
         end
+
+        after 'deploy:setup' do
+          _cset(:god_sites_path) { "/home/#{user}/sites/god" }
+
+          run "mkdir -p #{god_sites_path}"
+        end
         
         namespace :god do
           desc "Reload god config"
