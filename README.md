@@ -46,7 +46,7 @@ set :default_environment, {
 Add optional hooks for uploading your .rbenv-vars file if you're using the rbenv-vars plugin:
 
 ```ruby
-after 'deploy:create_symlink', 'secrets:upload', 'secrets:symlink'
+after 'deploy:finalize_update', 'secrets:upload', 'secrets:symlink'
 ```
 
 Create a new configuration file `config/god.conf`.
