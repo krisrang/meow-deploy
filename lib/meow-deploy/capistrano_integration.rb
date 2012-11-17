@@ -64,6 +64,11 @@ module MeowDeploy
             top.upload(".rbenv-vars", "#{shared_path}/.env")
           end
 
+          desc "Download env files"
+          task :download, :roles => :app do
+            top.download("#{shared_path}/.env", ".rbenv-vars")
+          end
+
           desc "Symlink env file."
           task :symlink, :roles => :app, :except => {:no_release => true} do
             run "ln -nfs #{shared_path}/.env #{release_path}/.rbenv-vars"
