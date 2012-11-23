@@ -37,6 +37,13 @@ module MeowDeploy
 
           run "mkdir -p #{god_sites_path}"
         end
+
+        namespace :db do
+          desc "Create the indexes defined on your mongoid models"
+          task :create_mongoid_indexes do
+            run "cd #{current_path} && bundle exec rake db:mongoid:create_indexes RAILS_ENV=production"
+          end
+        end
         
         namespace :god do
           desc "Reload god config"
@@ -79,20 +86,25 @@ module MeowDeploy
         namespace :tail do
           desc "Tail production log files" 
           task :production, :roles => :app do
-            run "tail -f #{shared_path}/log/production.log" do |channel, stream, data|
-              trap("INT") { puts 'Interupted'; exit 0; } 
-              puts "#{data}" 
-              break if stream == :err
-            end
+            tail_log "production.log"
           end
 
           desc "Tail god log files" 
           task :god, :roles => :app do
-            run "tail -f #{shared_path}/log/god.log" do |channel, stream, data|
-              trap("INT") { puts 'Interupted'; exit 0; } 
-              puts "#{data}" 
-              break if stream == :err
-            end
+            tail_log "god.log"
+          end
+
+          desc "Tail cron log files" 
+          task :cron, :roles => :app do
+            tail_log "cron.log"
+          end
+        end
+
+        def tail_log(log)
+          run "tail -f #{shared_path}/log/#{log}" do |channel, stream, data|
+            trap("INT") { puts 'Interupted'; exit 0; } 
+            puts "#{data}" 
+            break if stream == :err
           end
         end
       end
