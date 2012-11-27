@@ -5,7 +5,7 @@ require 'meow-deploy/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "meow-deploy"
-  gem.version       = MeowDeploy::VERSION
+  gem.version       = Meow::Deploy::VERSION
   gem.authors       = "Kristjan Rang"
   gem.email         = "mail@kristjanrang.eu"
   gem.description   = %q{Tasks for deploying to a stack running god, rbenv and whatever rails server}

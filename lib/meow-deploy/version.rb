@@ -1,3 +1,5 @@
-module MeowDeploy
-  VERSION = "0.0.10"
+module Meow
+  module Deploy
+    VERSION = "0.1.0"
+  end
 end
