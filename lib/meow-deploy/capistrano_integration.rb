@@ -54,7 +54,7 @@ module Meow
             end
 
             task :restart, :roles => :app, :except => {:no_release => true} do
-              sudo "#{rbenv} exec god restart #{application}"
+              run "touch #{shared_path}/restart.txt"
             end
 
             task :start, :roles => :app do
